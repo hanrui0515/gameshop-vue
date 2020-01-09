@@ -1,27 +1,55 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: Home,
+    redirect: '/user/home',
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    path: '/user/home',
+    alias: '/user',
+    component: () => import(/* webpackChunkName:'user-home' */ '../views/User/Home.vue'),
+  },
+  {
+    path: '/user/login',
+    component: () => import('../views/User/Login.vue'),
+  },
+  {
+    path: '/user/register',
+    component: () => import('../views/User/Register.vue'),
+  },
+  {
+    path: '/merchant/home',
+    alias: '/merchant',
+    component: () => import('../views/Merchant/Home.vue'),
+  },
+  {
+    path: '/merchant/order',
+    component: () => import('../views/Merchant/Order.vue'),
+  },
+  {
+    path: '/merchant/mailbox',
+    component: () => import('../views/Merchant/Mailbox.vue'),
+  },
+  {
+    path: '/admin',
+    component: () => import(/* webpackChunkName:'admin-home' */ '../views/Admin/Home.vue'),
+  },
+  {
+    path: '/admin/login',
+    component: () => import('../views/Admin/Login.vue'),
+  },
+  {
+    path: '/alert/no-permission-to-access',
+    component: () => import('../views/Common/NoPermissionToAccessAlert.vue'),
   },
 ];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: 'hash',
   base: process.env.BASE_URL,
   routes,
 });
