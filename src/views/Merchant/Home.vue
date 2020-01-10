@@ -4,21 +4,21 @@
             <template v-slot:main>
                 <div class="d-flex flex-row justify-content-between align-items-end" style="padding: 16px 0">
                     <div>
-                        <span class="font-weight-bold" style="font-size: 20px;">商品管理</span>
+                        <span class="font-weight-bold" style="font-size: 20px;">Goods management</span>
                     </div>
 
                     <div>
-                        <div class="btn btn-success">新增商品</div>
+                        <div class="btn btn-success">Add goods</div>
                     </div>
                 </div>
                 <table class="table table-striped mt-3">
                     <thead>
                     <tr>
-                        <th>预览图片</th>
-                        <th>标题</th>
-                        <th>价格</th>
-                        <th>上架状态</th>
-                        <th>操作</th>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Price</th>
+                        <th>Status</th>
+                        <th>Operation</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -32,21 +32,21 @@
                         <td>{{item.price}}</td>
                         <td>
                             <template v-if="item.up">
-                                <span class="text-success">已上架</span>
+                                <span class="text-success">Up</span>
                             </template>
                             <template v-else>
-                                <span class="text-danger">未上架</span>
+                                <span class="text-danger">Offline</span>
                             </template>
                         </td>
                         <td>
-                            <button class="btn btn-primary">修改</button>
+                            <button class="btn btn-primary">Modify</button>
                             <template v-if="item.up">
-                                <button class="btn btn-outline-warning ml-2">下架</button>
+                                <button class="btn btn-warning ml-2">Up</button>
                             </template>
                             <template v-else>
-                                <button class="btn btn-warning ml-2">上架</button>
+                                <button class="btn btn-outline-warning ml-2">Down</button>
                             </template>
-                            <button class="btn btn-outline-danger ml-2">删除</button>
+                            <button class="btn btn-outline-danger ml-2">Delete</button>
                         </td>
                     </tr>
                     </tbody>
@@ -67,25 +67,25 @@
         public goods = [{
             _id: 10086,
             image: '',
-            title: '哈哈哈',
+            title: 'Hahhhhhhhhhhhhhh',
             price: 13.33,
             up: true,
         }, {
             _id: 10086,
             image: '',
-            title: '哈哈哈',
+            title: 'Hahhhhhhhhhhhhhh',
             price: 13.33,
             up: true,
         }, {
             _id: 10086,
             image: '',
-            title: '哈哈哈',
+            title: 'Hahhhhhhhhhhhhhh',
             price: 13.33,
             up: false,
         }, {
             _id: 10086,
             image: '',
-            title: '哈哈哈',
+            title: 'Hahhhhhhhhhhhhhh',
             price: 13.33,
             up: false,
         }];

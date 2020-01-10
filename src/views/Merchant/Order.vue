@@ -4,18 +4,18 @@
             <template v-slot:main>
                 <div class="d-flex flex-row justify-content-between align-items-end" style="padding: 16px 0">
                     <div>
-                        <span class="font-weight-bold" style="font-size: 20px;">订单管理</span>
+                        <span class="font-weight-bold" style="font-size: 20px;">Order management</span>
                     </div>
                 </div>
                 <table class="table table-striped mt-3">
                     <thead>
                     <tr>
-                        <th>订单编号</th>
-                        <th>商品信息</th>
-                        <th>实付款</th>
-                        <th>付款时间</th>
-                        <th>订单状态</th>
-                        <th>操作</th>
+                        <th>Order SN.</th>
+                        <th>Goods information</th>
+                        <th>Paid amount</th>
+                        <th>Paid time</th>
+                        <th>Status</th>
+                        <th>Operation</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -26,31 +26,31 @@
                         <td>{{formatDate(item.orderedAt)}}</td>
                         <td>
                             <template v-if="item.status === 'ordered'">
-                                <span class="text-primary">待付款</span>
+                                <span class="text-primary">Unpaid</span>
                             </template>
                             <template v-if="item.status === 'paid'">
-                                <span class="text-warning">待发货</span>
+                                <span class="text-warning">Needs delivery</span>
                             </template>
                             <template v-if="item.status === 'delivered'">
-                                <span class="text-info">待签收</span>
+                                <span class="text-info">Needs receive</span>
                             </template>
                             <template v-if="item.status === 'completed'">
-                                <span class="text-success">交易成功</span>
+                                <span class="text-success">Completed</span>
                             </template>
                             <template v-if="item.status === 'cancelled'">
-                                <span class="text-danger">已取消</span>
+                                <span class="text-danger">Cancelled</span>
                             </template>
                         </td>
                         <td>
-                            <button class="btn btn-primary">联系客户</button>
+                            <button class="btn btn-primary">Contact customer</button>
                             <template v-if="item.status === 'paid'">
-                                <button class="btn btn-warning ml-2">标记发货</button>
+                                <button class="btn btn-warning ml-2">Mark delivered</button>
                             </template>
                             <template v-if="item.status === 'delivered'">
-                                <button class="btn btn-info ml-2">提醒签收</button>
+                                <button class="btn btn-info ml-2">Notice receive</button>
                             </template>
                             <template v-if="item.status === 'cancelled'">
-                                <button class="btn btn-outline-danger ml-2">删除订单</button>
+                                <button class="btn btn-outline-danger ml-2">Delete</button>
                             </template>
                         </td>
                     </tr>
@@ -75,7 +75,7 @@
             sn: 'abcdefg',
             goods: {
                 image: '',
-                title: '哈哈哈',
+                title: 'Hahhhhhhhhhhhhhh',
             },
             price: 12.23,
             orderedAt: new Date(),
@@ -85,7 +85,7 @@
             sn: 'abcdefg',
             goods: {
                 image: '',
-                title: '哈哈哈',
+                title: 'Hahhhhhhhhhhhhhh',
             },
             price: 12.23,
             orderedAt: new Date(),
@@ -95,7 +95,7 @@
             sn: 'abcdefg',
             goods: {
                 image: '',
-                title: '哈哈哈',
+                title: 'Hahhhhhhhhhhhhhh',
             },
             price: 12.23,
             orderedAt: new Date(),
@@ -105,7 +105,7 @@
             sn: 'abcdefg',
             goods: {
                 image: '',
-                title: '哈哈哈',
+                title: 'Hahhhhhhhhhhhhhh',
             },
             price: 12.23,
             orderedAt: new Date(),
@@ -115,7 +115,7 @@
             sn: 'abcdefg',
             goods: {
                 image: '',
-                title: '哈哈哈',
+                title: 'Hahhhhhhhhhhhhhh',
             },
             price: 12.23,
             orderedAt: new Date(),

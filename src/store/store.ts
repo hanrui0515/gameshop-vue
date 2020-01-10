@@ -4,20 +4,13 @@ import {AxiosResponse} from 'axios';
 import createLogger from 'vuex/dist/logger';
 import Action from '@/store/Action';
 import Mutation from '@/store/Mutation';
+import {initialState} from '@/store/state';
 import AxiosUtil, {LoginUserData, RegisterUserData, RetrieveGoodsParams} from '@/utils/AxiosUtil';
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-  state: {
-    user: {
-      credential: null,
-    },
-    mailbox: {},
-    shop: {
-      goods: [],
-    },
-  },
+  state: initialState,
   actions: {
     [Action.LOGIN_USER_REQUEST]({dispatch}, data: LoginUserData) {
       AxiosUtil.loginUser(data).then((response) => {
@@ -67,6 +60,7 @@ const store = new Vuex.Store({
       dispatch(Action.REGISTER_USER_PENDING);
     },
     [Action.REGISTER_USER_RESPONSE]({commit}, response: AxiosResponse) {
+      this.$vm.$socket.client.connect();
       commit(Mutation.SET_USER_CREDENTIAL, response.data.data);
     },
     [Action.REGISTER_USER_ERROR]({dispatch, commit}, err) {
@@ -86,8 +80,8 @@ const store = new Vuex.Store({
     [Action.RETRIEVE_GOODS_ERROR]() {
       // Error handling...
     },
-    ['IO_AUTHORIZE']() {
-      this.$vm.$socket.client.emit('authorize');
+    ['IO_AUTHORIZE']({state}) {
+      this.$vm.$socket.client.emit('authorize', state.user.credential.token);
       console.log(arguments);
     },
     ['IO_AUTHORIZE_TIMEOUT']({}, args) {

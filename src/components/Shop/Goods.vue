@@ -6,14 +6,14 @@
                 <div>
                     <div
                             style="overflow: hidden; height: 48px; line-height: 16px; text-overflow: clip">
-                        G胖封神榜G胖传奇录G胖风云G胖荣耀G胖封神榜G胖传奇录G胖风云G胖荣耀G胖封神榜G胖传奇录G胖风云G胖荣耀
+                        G's Games
                     </div>
                 </div>
                 <div>
                     <div class="d-flex flex-row mt-1">
                         <div class="flex-fill">
                             <Fa :icon="['fas', 'store']" style="color: burlywood"/>
-                            <a class="mc-info ml-1" href="#">被游戏耽误的企业家</a>
+                            <a class="mc-info ml-1" href="#">Merchant name</a>
                         </div>
                     </div>
                     <div class="d-flex flex-row mt-2">
@@ -21,7 +21,7 @@
                         </div>
                         <div>
                             <Fa :icon="['fas', 'headset']" style="color: orangered"/>
-                            <a class="ml-1" href="#">联系客服</a>
+                            <a class="ml-1" href="#">Customer Service</a>
                         </div>
                     </div>
                 </div>

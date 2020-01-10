@@ -6,27 +6,27 @@
                     <tbody>
                     <tr>
                         <td>
-                            <h2 class="text-primary text-center">用户注册</h2>
+                            <h2 class="text-primary text-center">User Registration</h2>
                             <div class="row mt-5">
                                 <div class="form-group">
-                                    <label for="form-username">用户名</label>
+                                    <label for="form-username">Username</label>
                                     <input id="form-username" class="form-control" type="text">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group">
-                                    <label for="form-password">密码</label>
+                                    <label for="form-password">Password</label>
                                     <input id="form-password" class="form-control" type="text">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group">
-                                    <label for="form-password-confirm">重复密码</label>
+                                    <label for="form-password-confirm">Password confirmation</label>
                                     <input id="form-password-confirm" class="form-control" type="text">
                                 </div>
                             </div>
                             <div class="row mt-2">
-                                <div class="btn btn-primary">注册</div>
+                                <div class="btn btn-primary">Register</div>
                             </div>
                         </td>
                     </tr>

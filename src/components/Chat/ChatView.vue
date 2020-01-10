@@ -6,9 +6,9 @@
                     <li class="session-tab active d-flex flex-row">
                         <div class="avatar mr-2"></div>
                         <div class="flex-fill d-flex flex-column" style="width: 0">
-                            <div>啦啦啦</div>
+                            <div>Dany</div>
                             <div class="overflow-hidden mt-1" style="width: 100%">
-                                <div style="white-space: nowrap; text-overflow: ellipsis">亲不好意思呢，这款商品目前没货了哦</div>
+                                <div style="white-space: nowrap; text-overflow: ellipsis">Hi, </div>
                             </div>
                         </div>
                     </li>
@@ -21,11 +21,11 @@
                     <div class="avatar"></div>
                     <div class="ml-2">
                         <div>
-                            <span style="font-size: 15px">G胖旗舰店客服-</span>
-                            <span style="font-size: 15px">啦啦啦</span>
+                            <span style="font-size: 15px">Custom service-</span>
+                            <span style="font-size: 15px">La</span>
                         </div>
                         <div style="margin-top: 2px">
-                            <span style="font-size: 10px">如果我们当初早点遇见，那结局将是有多么美好呢。</span>
+                            <span style="font-size: 10px">Let's go!</span>
                         </div>
                     </div>
                 </div>
@@ -34,22 +34,22 @@
                 <div class="message message-reply mb-2" style="text-align: left" v-for="i in new Array(100)">
                     <div>
                         <div style="color: blue">
-                            <span style="font-weight: 600;">啦啦啦</span>
+                            <span style="font-weight: 600;">La</span>
                             <span class="ml-2">2020-01-09 12:46:03</span>
                         </div>
                         <div class="mt-1">
-                            您好，我在的。
+                            I'm hearing。
                         </div>
                     </div>
                 </div>
                 <div class="message message-ask mb-2" style="text-align: right">
                     <div>
                         <div style="color: green">
-                            <span style="font-weight: 600;">啦啦啦</span>
+                            <span style="font-weight: 600;">Lalala</span>
                             <span class="ml-2">2020-01-09 12:46:03</span>
                         </div>
                         <div class="mt-1">
-                            您好，我在的。
+                            Hello, I'm hearing。
                         </div>
                     </div>
                 </div>
@@ -57,7 +57,7 @@
             <div class="input-box d-flex flex-column mx-2 mb-2">
                 <textarea class="form-control flex-fill" style="width: 100%;"></textarea>
                 <div class="d-flex flex-row justify-content-end">
-                    <button class="btn btn-dark mt-2">发送</button>
+                    <button class="btn btn-dark mt-2">Send</button>
                 </div>
             </div>
         </div>
