@@ -8,17 +8,17 @@
                     <div class="row mt-5">
                         <div class="form-group">
                             <label for="form-username">用户名</label>
-                            <input id="form-username" class="form-control" type="text">
+                            <input id="form-username" class="form-control" type="text" ref="refNameInput">
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group">
                             <label for="form-password">密码</label>
-                            <input id="form-password" class="form-control" type="text">
+                            <input id="form-password" class="form-control" type="text" ref="refPasswordInput">
                         </div>
                     </div>
                     <div class="row mt-2">
-                        <div class="btn btn-primary">登录</div>
+                        <div class="btn btn-primary" @click="doLogin">登录</div>
                     </div>
                 </td>
             </tr>
@@ -32,3 +32,29 @@
         width: 100%
         height: 100%
 </style>
+
+<script lang="ts">
+    import {Component, Vue} from 'vue-property-decorator';
+    import {mapActions} from 'vuex';
+    import Action from '@/store/Action';
+    import PasswordUtil from '@/utils/PasswordUtil';
+
+    @Component({
+        methods: {
+            ...mapActions({
+                login: Action.LOGIN_USER_REQUEST,
+            })
+        }
+    })
+    export default class extends Vue {
+        public doLogin() {
+            const rawNameField = this.$refs.refNameInput.value;
+            const rawPasswordField = this.$refs.refPasswordInput.value;
+
+            this.login({
+                name: rawNameField,
+                password: PasswordUtil.makeHashedPassword(rawPasswordField),
+            });
+        }
+    }
+</script>
