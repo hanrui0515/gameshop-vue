@@ -5,15 +5,15 @@
             <div class="flex-fill d-flex flex-column justify-content-between m-2">
                 <div>
                     <div
-                            style="overflow: hidden; height: 48px; line-height: 16px; text-overflow: clip">
-                        G's Games
+                        style="overflow: hidden; height: 48px; line-height: 16px; text-overflow: clip">
+                        {{chance.sentence({words: 5})}}
                     </div>
                 </div>
                 <div>
                     <div class="d-flex flex-row mt-1">
                         <div class="flex-fill">
                             <Fa :icon="['fas', 'store']" style="color: burlywood"/>
-                            <a class="mc-info ml-1" href="#">Merchant name</a>
+                            <a class="mc-info ml-1" href="#">{{chance.name()}}</a>
                         </div>
                     </div>
                     <div class="d-flex flex-row mt-2">
@@ -21,7 +21,7 @@
                         </div>
                         <div>
                             <Fa :icon="['fas', 'headset']" style="color: orangered"/>
-                            <a class="ml-1" href="#" @click="">Customer Service</a>
+                            <a class="ml-1" href="#" @click="onClick1 && onClick1()">Customer Service</a>
                         </div>
                     </div>
                 </div>
@@ -32,17 +32,24 @@
 
 <script lang="ts">
 
-  import {Component, Vue} from 'vue-property-decorator';
-  import {library} from '@fortawesome/fontawesome-svg-core';
-  import {faStore, faHeadset} from '@fortawesome/free-solid-svg-icons';
+    import {Component, Vue} from 'vue-property-decorator';
+    import {library} from '@fortawesome/fontawesome-svg-core';
+    import {faStore, faHeadset} from '@fortawesome/free-solid-svg-icons';
+    import Chance from 'chance';
 
-  library.add(faStore);
-  library.add(faHeadset);
+    library.add(faStore);
+    library.add(faHeadset);
 
-  @Component
-  export default class extends Vue {
-
-  }
+    @Component({
+        props: {
+            onClick1: {
+                type: Function,
+            }
+        }
+    })
+    export default class extends Vue {
+        public chance = new Chance;
+    }
 </script>
 
 <style lang="sass" scoped>

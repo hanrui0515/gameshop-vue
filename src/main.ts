@@ -41,6 +41,15 @@ Vue.use(VueSocketIOExt, io, {
   eventToMutationTransformer: (event: string) => event.replace(/([A-Z_][^A-Z_]+)/, '_$1').toUpperCase(),
 });
 
+store.subscribe((mut, state) => {
+  localStorage.setItem('store', state);
+});
+
+store.subscribeAction((action, state) => {
+  console.log('%cAction', 'color: #ff0; background-color: #666; padding: 3px 6px; border-radius: 2px;', action.type);
+  console.log('%cPayload', 'color: #0ff; background-color: #666; padding: 3px 6px; border-radius: 2px;', action.payload);
+});
+
 const app = new Vue({
   router,
   store,

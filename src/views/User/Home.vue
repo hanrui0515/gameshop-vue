@@ -52,7 +52,7 @@
                     </div>
                 </div>
                 <div class="w-100 h-100">
-                    <GoodsView/>
+                    <GoodsView :onClick1="toggleChatView"/>
                 </div>
                 <div class="pagination-wrapper d-flex flex-row justify-content-center mt-5">
                     <nav>

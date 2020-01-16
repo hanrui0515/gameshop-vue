@@ -10,10 +10,11 @@
                 <table class="table table-striped mt-3">
                     <thead>
                     <tr>
-                        <th>Order SN.</th>
+                        <th>SN.</th>
                         <th>Goods information</th>
-                        <th>Paid amount</th>
-                        <th>Paid time</th>
+                        <th>Origin price</th>
+                        <th>Purchase price</th>
+                        <th>Create Time</th>
                         <th>Status</th>
                         <th>Operation</th>
                     </tr>
@@ -22,8 +23,9 @@
                     <tr v-for="item in orders">
                         <td>{{item.sn}}</td>
                         <td><a href="#">{{item.goods.title}}</a></td>
-                        <td>{{item.price}}</td>
-                        <td>{{formatDate(item.orderedAt)}}</td>
+                        <td>{{item.originPrice}}</td>
+                        <td>{{item.purchasePrice}}</td>
+                        <td>{{formatDate(item.createdAt)}}</td>
                         <td>
                             <template v-if="item.status === 'ordered'">
                                 <span class="text-primary">Unpaid</span>
@@ -65,62 +67,21 @@
     import {Component, Vue} from 'vue-property-decorator';
     import BaseLayout from './BaseLayout.vue';
     import moment from 'moment';
+    import {mapState} from 'vuex';
 
     @Component({
-        components: {BaseLayout}
+        components: {BaseLayout},
+        computed: {
+            ...mapState({
+                goods: (state: any) => state.shop.goods,
+                orders: (state: any) => state.shop.orders.map((order: any) => ({
+                    ...order,
+                    goods: (state.shop.goods.filter((goods: any) => goods.id === order.goodsId)[0]) || null,
+                })),
+            })
+        }
     })
     export default class extends Vue {
-        public orders = [{
-            _id: 3,
-            sn: 'abcdefg',
-            goods: {
-                image: '',
-                title: 'Hahhhhhhhhhhhhhh',
-            },
-            price: 12.23,
-            orderedAt: new Date(),
-            status: 'completed',
-        }, {
-            _id: 3,
-            sn: 'abcdefg',
-            goods: {
-                image: '',
-                title: 'Hahhhhhhhhhhhhhh',
-            },
-            price: 12.23,
-            orderedAt: new Date(),
-            status: 'ordered',
-        }, {
-            _id: 3,
-            sn: 'abcdefg',
-            goods: {
-                image: '',
-                title: 'Hahhhhhhhhhhhhhh',
-            },
-            price: 12.23,
-            orderedAt: new Date(),
-            status: 'cancelled',
-        }, {
-            _id: 3,
-            sn: 'abcdefg',
-            goods: {
-                image: '',
-                title: 'Hahhhhhhhhhhhhhh',
-            },
-            price: 12.23,
-            orderedAt: new Date(),
-            status: 'paid',
-        }, {
-            _id: 3,
-            sn: 'abcdefg',
-            goods: {
-                image: '',
-                title: 'Hahhhhhhhhhhhhhh',
-            },
-            price: 12.23,
-            orderedAt: new Date(),
-            status: 'delivered',
-        }];
 
         public formatDate(date: Date) {
             return moment(date).format('YYYY-MM-DD HH:mm:ss');

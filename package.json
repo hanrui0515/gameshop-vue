@@ -16,6 +16,7 @@
     "@fortawesome/vue-fontawesome": "^0.1.9",
     "axios": "^0.19.1",
     "bootstrap": "^4.4.1",
+    "chance": "^1.1.4",
     "core-js": "^3.4.4",
     "crypto-js": "^3.1.9-1",
     "css-loader": "^3.4.1",
@@ -36,6 +37,7 @@
   "devDependencies": {
     "@types/axios": "^0.14.0",
     "@types/chai": "^4.2.5",
+    "@types/chance": "^1.0.8",
     "@types/crypto-js": "^3.1.43",
     "@types/jsonwebtoken": "^8.3.5",
     "@types/koa-session": "^5.10.1",

@@ -8,7 +8,7 @@
                     </div>
 
                     <div>
-                        <div class="btn btn-success">Add goods</div>
+                        <div class="btn btn-success" @click="doAppendRandomGoods()">Add goods</div>
                     </div>
                 </div>
                 <table class="table table-striped mt-3">
@@ -35,18 +35,24 @@
                                 <span class="text-success">Up</span>
                             </template>
                             <template v-else>
-                                <span class="text-danger">Offline</span>
+                                <span class="text-danger">Down</span>
                             </template>
                         </td>
                         <td>
                             <button class="btn btn-primary">Modify</button>
-                            <template v-if="item.up">
-                                <button class="btn btn-warning ml-2">Up</button>
+                            <template v-if="item.up === true">
+                                <button class="btn btn-outline-warning ml-2"
+                                        @click="doUpdateGoods(item.id, {up: false})">
+                                    Down
+                                </button>
                             </template>
                             <template v-else>
-                                <button class="btn btn-outline-warning ml-2">Down</button>
+                                <button class="btn btn-warning ml-2"
+                                        @click="doUpdateGoods(item.id, {up: true})">
+                                    Up
+                                </button>
                             </template>
-                            <button class="btn btn-outline-danger ml-2">Delete</button>
+                            <button class="btn btn-outline-danger ml-2" @click="doRemoveGoods(item.id)">Delete</button>
                         </td>
                     </tr>
                     </tbody>
@@ -59,36 +65,52 @@
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator';
     import BaseLayout from './BaseLayout.vue';
+    import {mapState, mapMutations} from 'vuex';
+    import Mutation from '@/store/Mutation';
+    import Chance from 'chance';
 
     @Component({
-        components: {BaseLayout}
+        components: {BaseLayout},
+        methods: {
+            ...mapMutations({
+                updateGoods: Mutation.UPDATE_GOODS,
+                removeGoods: Mutation.REMOVE_GOODS,
+                appendGoods: Mutation.APPEND_GOODS,
+            }),
+        },
+        computed: {
+            ...mapState({
+                goods: (state: any) => state.shop.goods,
+                goodsCount: (state: any) => state.shop.goods.length,
+            })
+        }
     })
     export default class extends Vue {
-        public goods = [{
-            _id: 10086,
-            image: '',
-            title: 'Hahhhhhhhhhhhhhh',
-            price: 13.33,
-            up: true,
-        }, {
-            _id: 10086,
-            image: '',
-            title: 'Hahhhhhhhhhhhhhh',
-            price: 13.33,
-            up: true,
-        }, {
-            _id: 10086,
-            image: '',
-            title: 'Hahhhhhhhhhhhhhh',
-            price: 13.33,
-            up: false,
-        }, {
-            _id: 10086,
-            image: '',
-            title: 'Hahhhhhhhhhhhhhh',
-            price: 13.33,
-            up: false,
-        }];
+        public doAppendRandomGoods() {
+            this.doAppendGoods({
+                // @ts-ignore
+                id: (new Chance).integer({min: this.goodsCount + 1}),
+                image: '',
+                title: (new Chance).sentence({words: 5}),
+                price: (new Chance).integer({min: 0, max: 9999}) + (new Chance).integer({min: 1, max: 99}) * 0.01,
+                up: (new Chance).bool(),
+            });
+        }
+
+        public doAppendGoods(goods: any) {
+            // @ts-ignore
+            this.appendGoods({goods});
+        }
+
+        public doUpdateGoods(id: number, goods: any) {
+            // @ts-ignore
+            this.updateGoods({id, goods});
+        }
+
+        public doRemoveGoods(id: number) {
+            // @ts-ignore
+            this.removeGoods({id});
+        }
     }
 </script>
 

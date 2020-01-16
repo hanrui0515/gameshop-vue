@@ -1,7 +1,7 @@
 <template>
     <div class="goods-view">
         <template v-if="deferredGoods" v-for="component in deferredGoods">
-            <component :is="component"/>
+            <component :is="component" :onClick1="onClick1"/>
         </template>
     </div>
 </template>
@@ -11,8 +11,11 @@
     import {Component, Vue} from 'vue-property-decorator';
 
     @Component({
-        components: {
-            Goods,
+        components: {Goods},
+        props: {
+            onClick1: {
+                type: Function,
+            }
         }
     })
     export default class extends Vue {

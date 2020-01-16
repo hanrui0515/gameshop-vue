@@ -10,7 +10,7 @@ import AxiosUtil, {LoginUserData, RegisterUserData, RetrieveGoodsParams} from '@
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-  state: initialState,
+  state: initialState(),
   actions: {
     [Action.LOGIN_USER_REQUEST]({dispatch}, data: LoginUserData) {
       AxiosUtil.loginUser(data).then((response) => {
@@ -40,7 +40,7 @@ const store = new Vuex.Store({
       const res1 = await AxiosUtil.authorizeUser({token: response.data.data.token});
       commit('MUT_SET_USER_INFO', res1.data.data.user);
 
-      this.$vm.$router.replace({path: '/'});
+      await this.$vm.$router.replace({path: '/'});
     },
     [Action.LOGIN_USER_ERROR]({dispatch, commit}, err) {
       // error handling...
@@ -71,10 +71,10 @@ const store = new Vuex.Store({
       });
       dispatch(Action.REGISTER_USER_PENDING);
     },
-    [Action.REGISTER_USER_RESPONSE]({commit}, response: AxiosResponse) {
+    async [Action.REGISTER_USER_RESPONSE]({commit}, response: AxiosResponse) {
       commit(Mutation.SET_USER_CREDENTIAL, response.data.data);
 
-      this.$vm.$router.replace({path: '/user/login'});
+      await this.$vm.$router.replace({path: '/user/login'});
     },
     [Action.REGISTER_USER_ERROR]({dispatch, commit}, err) {
       // Error handling...
@@ -98,17 +98,40 @@ const store = new Vuex.Store({
       this.$vm.$socket.client.emit('authorize', state.user.credential.token);
       console.log(arguments);
     },
-    ['IO_AUTHORIZE_TIMEOUT']({}, args) {
+    ['IO_AUTHORIZATION_ERROR']({}, args) {
       console.log(args);
     },
   },
   mutations: {
-    [Mutation.SET_USER_CREDENTIAL](state, data) {
-      // @ts-ignore
-      state.user.credential = {token: data.token, expiredAt: new Date(data.expiredAt * 1000)};
-    },
-    ['MUT_SET_USER_INFO'](state, data) {
+    [Mutation.SET_USER_INFO](state, data) {
       state.user.info = data;
+    },
+    [Mutation.SET_USER_CREDENTIAL](state, {token, expiredAt}) {
+      state.user.credential = {token, expiredAt: new Date(expiredAt * 1000)};
+    },
+    [Mutation.APPEND_GOODS](state, {goods}) {
+      state.shop.goods = [...state.shop.goods, goods];
+    },
+    [Mutation.UPDATE_GOODS](state, {id, goods}) {
+      const transition = state.shop.goods.filter((goods: any) => goods.id === id)[0] || {};
+      const newGoods = {...transition, ...goods, id};
+
+      state.shop.goods = state.shop.goods.map((goods: any) => goods.id !== id ? goods : newGoods);
+    },
+    [Mutation.REMOVE_GOODS](state, {id}) {
+      state.shop.goods = state.shop.goods.filter((goods: any) => goods.id !== id);
+    },
+    [Mutation.APPEND_ORDER](state, {order}) {
+      state.shop.orders = [...state.shop.orders, order];
+    },
+    [Mutation.UPDATE_ORDER](state, {id, order}) {
+      const transition = state.shop.orders.filter((order: any) => order.id === id)[0] || {};
+      const newGoods = {...transition, ...order, id};
+
+      state.shop.orders = state.shop.orders.map((order: any) => order.id !== id ? order : newGoods);
+    },
+    [Mutation.REMOVE_ORDER](state, {id}) {
+      state.shop.orders = state.shop.orders.filter((order: any) => order.id !== id);
     },
     ['IO_PUSH_MESSAGE'](state, args) {
       state.mailbox.messages.push(args.message);
@@ -117,11 +140,6 @@ const store = new Vuex.Store({
   modules: {},
   plugins: [createLogger()],
   strict: true,
-});
-
-store.subscribeAction((action, state) => {
-  console.log('%cAction', 'color: #ff0; background-color: #666; padding: 3px 6px; border-radius: 2px;', action.type);
-  console.log('%cPayload', 'color: #0ff; background-color: #666; padding: 3px 6px; border-radius: 2px;', action.payload);
 });
 
 export default store;
