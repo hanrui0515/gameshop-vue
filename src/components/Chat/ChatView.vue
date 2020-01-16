@@ -102,8 +102,8 @@
     export default class extends Vue {
 
         public send() {
-            this.$socket.client.emit('sendMessage', {message: this.$refs['refMessage'].value});
-            this.$refs['refMessage'].value = '';
+            this.$socket.client.emit('sendMessage', {message: (this.$refs['refMessage'] as any).value});
+            (this.$refs['refMessage'] as any).value = '';
         }
 
     }

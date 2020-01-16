@@ -59,10 +59,10 @@
     export default class extends Vue {
 
         public doRegister() {
-            const un = this.$refs["refUn"].value;
-            const pw = this.$refs["refPw"].value;
-            const pwc = this.$refs["refPwc"].value;
-            const nn = this.$refs["refNn"].value;
+            const un = (this.$refs['refUn'] as any).value;
+            const pw = (this.$refs['refPw'] as any).value;
+            const pwc = (this.$refs['refPwc'] as any).value;
+            const nn = (this.$refs['refNn'] as any).value;
 
             this.register({
                 name: un,

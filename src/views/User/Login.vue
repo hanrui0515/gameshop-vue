@@ -48,8 +48,8 @@
     })
     export default class extends Vue {
         public doLogin() {
-            const rawNameField = this.$refs.refNameInput.value;
-            const rawPasswordField = this.$refs.refPasswordInput.value;
+            const rawNameField = (this.$refs["refNameInput"] as any).value;
+            const rawPasswordField = (this.$refs["refPasswordInput"] as any).value;
 
             this.login({
                 name: rawNameField,
