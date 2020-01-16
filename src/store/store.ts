@@ -38,7 +38,7 @@ const store = new Vuex.Store({
       commit(Mutation.SET_USER_CREDENTIAL, response.data.data);
 
       const res1 = await AxiosUtil.authorizeUser({token: response.data.data.token});
-      commit('MUT_SET_USER_INFO', res1.data.data.user);
+      commit(Mutation.SET_USER_INFO, res1.data.data.user);
 
       await this.$vm.$router.replace({path: '/'});
     },

@@ -6,7 +6,7 @@
                 <div>
                     <div
                         style="overflow: hidden; height: 48px; line-height: 16px; text-overflow: clip">
-                        <a href="#" @click="alert('You has purchased the game')">
+                        <a href="#" @click="alert('Purchased')">
                             {{chance.sentence({words: 5})}}
                         </a>
                     </div>
@@ -51,6 +51,10 @@
     })
     export default class extends Vue {
         public chance = new Chance;
+
+        public alert(msg: string) {
+            alert(msg)
+        }
     }
 </script>
 

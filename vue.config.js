@@ -2,12 +2,10 @@ const webpack = require('webpack');
 
 module.exports = {
   assetsDir: 'static',
-  publicPath: 'http://192.168.1.10:8081',
   devServer: {
-    host: '192.168.1.10',
     proxy: {
-      '/api': {
-        target: 'http://192.168.1.10:62180'
+      '/': {
+        target: 'http://localhost:62180'
       }
     }
   },
