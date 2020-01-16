@@ -21,7 +21,7 @@
                         </div>
                         <div>
                             <Fa :icon="['fas', 'headset']" style="color: orangered"/>
-                            <a class="ml-1" href="#">Customer Service</a>
+                            <a class="ml-1" href="#" @click="">Customer Service</a>
                         </div>
                     </div>
                 </div>

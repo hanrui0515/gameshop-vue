@@ -8,7 +8,7 @@
                         <div class="flex-fill d-flex flex-column" style="width: 0">
                             <div>Dany</div>
                             <div class="overflow-hidden mt-1" style="width: 100%">
-                                <div style="white-space: nowrap; text-overflow: ellipsis">Hi, </div>
+                                <div style="white-space: nowrap; text-overflow: ellipsis">Hi,</div>
                             </div>
                         </div>
                     </li>
@@ -31,33 +31,39 @@
                 </div>
             </div>
             <div class="message-box flex-fill m-2 pt-2" style="height: 0; overflow-y: scroll">
-                <div class="message message-reply mb-2" style="text-align: left" v-for="i in new Array(100)">
-                    <div>
-                        <div style="color: blue">
-                            <span style="font-weight: 600;">La</span>
-                            <span class="ml-2">2020-01-09 12:46:03</span>
+                <template v-for="message in messages">
+                    <template v-if="message.user.id !== userinfo.id">
+                        <div class="message message-reply mb-2" style="text-align: left">
+                            <div>
+                                <div style="color: blue">
+                                    <span style="font-weight: 600;">{{message.user.nickname}}</span>
+                                    <span class="ml-2">{{message.createdAt}}</span>
+                                </div>
+                                <div class="mt-1">
+                                    {{message.message}}
+                                </div>
+                            </div>
                         </div>
-                        <div class="mt-1">
-                            I'm hearing。
+                    </template>
+                    <template v-if="message.user.id === userinfo.id">
+                        <div class="message message-ask mb-2" style="text-align: right">
+                            <div>
+                                <div style="color: green">
+                                    <span style="font-weight: 600;">{{message.user.nickname}}</span>
+                                    <span class="ml-2">{{message.createdAt}}</span>
+                                </div>
+                                <div class="mt-1">
+                                    {{message.message}}
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="message message-ask mb-2" style="text-align: right">
-                    <div>
-                        <div style="color: green">
-                            <span style="font-weight: 600;">Lalala</span>
-                            <span class="ml-2">2020-01-09 12:46:03</span>
-                        </div>
-                        <div class="mt-1">
-                            Hello, I'm hearing。
-                        </div>
-                    </div>
-                </div>
+                    </template>
+                </template>
             </div>
             <div class="input-box d-flex flex-column mx-2 mb-2">
-                <textarea class="form-control flex-fill" style="width: 100%;"></textarea>
+                <textarea class="form-control flex-fill" style="width: 100%;" ref="refMessage"></textarea>
                 <div class="d-flex flex-row justify-content-end">
-                    <button class="btn btn-dark mt-2">Send</button>
+                    <button class="btn btn-dark mt-2" @click="send">Send</button>
                 </div>
             </div>
         </div>
@@ -76,6 +82,7 @@
     import {library} from '@fortawesome/fontawesome-svg-core';
     import {faTimesCircle} from '@fortawesome/free-regular-svg-icons';
     import {Component, Vue} from 'vue-property-decorator';
+    import {mapState} from 'vuex';
 
     library.add(faTimesCircle);
 
@@ -84,9 +91,21 @@
             onClose: {
                 type: Function,
             }
+        },
+        computed: {
+            ...mapState({
+                userinfo: (state: any) => state.user.info,
+                messages: (state: any) => state.mailbox.messages
+            })
         }
     })
     export default class extends Vue {
+
+        public send() {
+            this.$socket.client.emit('sendMessage', {message: this.$refs['refMessage'].value});
+            this.$refs['refMessage'].value = '';
+        }
+
     }
 </script>
 

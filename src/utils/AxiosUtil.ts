@@ -13,6 +13,10 @@ export interface RegisterUserData {
   avatarImage?: Blob;
 }
 
+export interface AuthorizeUserData {
+  token: string;
+}
+
 export interface RetrieveGoodsParams {
   limit?: number;
   offset?: number;
@@ -63,6 +67,10 @@ export default class AxiosUtil {
 
   public static logoutUser(options?: AxiosRequestConfig) {
     return this.resolveAxios().post('/api/v1/user/logout', void 0, options);
+  }
+
+  public static authorizeUser(data: AuthorizeUserData, options?: AxiosRequestConfig) {
+    return this.resolveAxios().post('/api/v1/user/authorize', data, options);
   }
 
   public static registerUser(data: RegisterUserData, options?: AxiosRequestConfig) {

@@ -23,13 +23,24 @@ const store = new Vuex.Store({
     [Action.LOGIN_USER_PENDING]({dispatch, commit}, err) {
       // do something when request is pending
     },
-    [Action.LOGIN_USER_RESPONSE]({commit}, response: AxiosResponse) {
+    async [Action.LOGIN_USER_RESPONSE]({commit}, response: AxiosResponse) {
       localStorage.setItem('token', response.data.data.token);
       localStorage.setItem('token_expired_at', '' + (response.data.data.expiredAt * 1000));
 
       AxiosUtil.setAccessToken(response.data.data.token);
 
+      const socket = this.$vm.$socket;
+      socket.client.connect();
+      socket.client.once('connect', () => {
+        socket.client.emit('authorize', {token: response.data.data.token});
+      });
+
       commit(Mutation.SET_USER_CREDENTIAL, response.data.data);
+
+      const res1 = await AxiosUtil.authorizeUser({token: response.data.data.token});
+      commit('MUT_SET_USER_INFO', res1.data.data.user);
+
+      this.$vm.$router.replace({path: '/'});
     },
     [Action.LOGIN_USER_ERROR]({dispatch, commit}, err) {
       // error handling...
@@ -60,7 +71,6 @@ const store = new Vuex.Store({
       dispatch(Action.REGISTER_USER_PENDING);
     },
     [Action.REGISTER_USER_RESPONSE]({commit}, response: AxiosResponse) {
-      this.$vm.$socket.client.connect();
       commit(Mutation.SET_USER_CREDENTIAL, response.data.data);
     },
     [Action.REGISTER_USER_ERROR]({dispatch, commit}, err) {
@@ -92,6 +102,12 @@ const store = new Vuex.Store({
     [Mutation.SET_USER_CREDENTIAL](state, data) {
       // @ts-ignore
       state.user.credential = {token: data.token, expiredAt: new Date(data.expiredAt * 1000)};
+    },
+    ['MUT_SET_USER_INFO'](state, data) {
+      state.user.info = data;
+    },
+    ['IO_PUSH_MESSAGE'](state, args) {
+      state.mailbox.messages.push(args.message);
     },
   },
   modules: {},
