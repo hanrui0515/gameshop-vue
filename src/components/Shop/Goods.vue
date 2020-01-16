@@ -6,7 +6,9 @@
                 <div>
                     <div
                         style="overflow: hidden; height: 48px; line-height: 16px; text-overflow: clip">
-                        {{chance.sentence({words: 5})}}
+                        <a href="#" @click="alert('You has purchased the game')">
+                            {{chance.sentence({words: 5})}}
+                        </a>
                     </div>
                 </div>
                 <div>
