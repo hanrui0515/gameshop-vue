@@ -34,6 +34,7 @@ export default class AxiosUtil {
       headers: {
         ...(accessToken ? {authorization: 'Bearer ' + accessToken} : {}),
       },
+      validateStatus: (status) => true,
     });
     axios.interceptors.response.use((response) => {
       if (response.data.error) {

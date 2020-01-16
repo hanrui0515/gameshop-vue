@@ -44,6 +44,7 @@ const store = new Vuex.Store({
     },
     [Action.LOGIN_USER_ERROR]({dispatch, commit}, err) {
       // error handling...
+      alert(err.message + '. details: ' + err.details);
     },
     [Action.LOGOUT_USER_REQUEST]({dispatch}) {
       AxiosUtil.logoutUser().then((response) => {
@@ -57,9 +58,9 @@ const store = new Vuex.Store({
       // do something when request is pending
     },
     [Action.LOGOUT_USER_RESPONSE]({commit}, response: AxiosResponse) {
-      commit(Mutation.SET_USER_CREDENTIAL, response.data.data);
+      // commit(Mutation.SET_USER_CREDENTIAL, response.data.data);
     },
-    [Action.REGISTER_USER_ERROR]({dispatch, commit}, err) {
+    [Action.LOGOUT_USER_ERROR]({dispatch, commit}, err) {
       // error handling...
     },
     [Action.REGISTER_USER_REQUEST]({dispatch}, data: RegisterUserData) {
@@ -72,9 +73,12 @@ const store = new Vuex.Store({
     },
     [Action.REGISTER_USER_RESPONSE]({commit}, response: AxiosResponse) {
       commit(Mutation.SET_USER_CREDENTIAL, response.data.data);
+
+      this.$vm.$router.replace({path: '/user/login'});
     },
     [Action.REGISTER_USER_ERROR]({dispatch, commit}, err) {
       // Error handling...
+      alert(err.message + '. details: ' + err.details);
     },
     [Action.RETRIEVE_GOODS_REQUEST]({dispatch}, params: RetrieveGoodsParams) {
       AxiosUtil.retrieveGoods(params).then((response) => {
